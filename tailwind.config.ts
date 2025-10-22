@@ -18,6 +18,7 @@ const config: Config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          hover: 'hsl(var(--primary-hover))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -43,6 +44,20 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        editorial: {
+          black: '#000000',
+          darkGray: '#333333',
+          gray: '#666666',
+          mediumGray: '#767676',
+          lightGray: '#e7e7e7',
+          veryLightGray: '#f7f7f7',
+          border: '#bdbdbd',
+          borderMedium: '#cccccc',
+        },
+        error: {
+          DEFAULT: '#e26154',
+          light: '#ffeeea',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -50,7 +65,16 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'sans-serif'],
+        serif: ['var(--font-miller)', 'Georgia', 'serif'],
+        sans: ['var(--font-libre)', 'Helvetica', 'sans-serif'],
+      },
+      boxShadow: {
+        soft: '0 2px 4px 0 rgba(0, 0, 0, 0.24)',
+        medium: '2px 2px 7px 0 rgba(0, 0, 0, 0.2)',
+        hover: '1.5px 1.5px 1px rgba(0, 0, 0, 0.2)',
+      },
+      letterSpacing: {
+        nav: '2px',
       },
     },
   },
