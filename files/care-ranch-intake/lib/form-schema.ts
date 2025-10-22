@@ -1,0 +1,111 @@
+import { z } from "zod";
+
+export const intakeFormSchema = z.object({
+  // I. Personal Details
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  dateOfBirth: z.date({ required_error: "Date of birth is required" }),
+  address: z.string().min(5, "Address is required"),
+  postalCode: z.string().min(3, "Postal code is required"),
+  city: z.string().min(2, "City is required"),
+  country: z.string().min(2, "Country is required"),
+  phoneNumber: z.string().min(10, "Please enter a valid phone number"),
+  email: z.string().email("Please enter a valid email address"),
+  generalPractitioner: z.string().optional(),
+
+  // II. Training Goals & Self-Awareness
+  participationReason: z.string().min(10, "Please provide your reason"),
+  currentMood: z.string().min(5, "Please describe your current mood"),
+  positiveQualities: z.string().min(10, "Please name at least two qualities"),
+  desiredChange: z.string().min(10, "Please share what you'd like to see happen"),
+  leastLikedAspects: z.string().optional(),
+  mostLikedAspects: z.string().optional(),
+  proudAchievements: z.string().optional(),
+  intensiveJoy: z.string().optional(),
+  ashamedOf: z.string().optional(),
+  greatestFear: z.string().optional(),
+  significantLosses: z.string().optional(),
+  guidingValues: z.string().optional(),
+  misunderstood: z.string().optional(),
+  addictions: z.string().optional(),
+  postponedMatters: z.string().optional(),
+  biggestConcern: z.string().optional(),
+
+  // III. Relationships & Family
+  parentRelationship: z.string().optional(),
+  siblings: z.string().optional(),
+  siblingPosition: z.string().optional(),
+  parentsView: z.string().optional(),
+  roleModel: z.string().optional(),
+  hasPartner: z.string().optional(),
+  relationshipAppreciation: z.string().optional(),
+  partnerView: z.string().optional(),
+  friendsView: z.string().optional(),
+  relationshipChanges: z.string().optional(),
+  lifePurpose: z.string().optional(),
+  sharedLifePurpose: z.string().optional(),
+
+  // IV. Self-Rating (0-10)
+  upbringingRating: z.number().min(0).max(10),
+  financeRating: z.number().min(0).max(10),
+  relationshipFreedomRating: z.number().min(0).max(10),
+  intimacyRating: z.number().min(0).max(10),
+  familyRelationshipRating: z.number().min(0).max(10),
+  workLifeBalanceRating: z.number().min(0).max(10),
+  workRating: z.number().min(0).max(10),
+  healthRating: z.number().min(0).max(10),
+
+  // V. Leadership Identity & Expression
+  leadershipStyle: z.string().optional(),
+  groupEnergy: z.string().optional(),
+  alignedAspects: z.string().optional(),
+  drainingAspects: z.string().optional(),
+  pressurePatterns: z.string().optional(),
+  impactfulFeedback: z.string().optional(),
+  hiddenParts: z.string().optional(),
+  influentialLeaders: z.string().optional(),
+  valueAlignment: z.string().optional(),
+
+  // VI. Intention
+  leadingFromWholeness: z.string().optional(),
+  innerTensions: z.string().optional(),
+  leadershipImpact: z.string().optional(),
+  trainingGoals: z.string().optional(),
+
+  // VII. Health Questions
+  medications: z.string().optional(),
+  homeopathicRemedies: z.string().optional(),
+  healthComplaints: z.string().optional(),
+  acuteOrChronic: z.string().optional(),
+  medicalTreatment: z.string().optional(),
+  mobilityProblems: z.string().optional(),
+  surgeryHistory: z.string().optional(),
+  accidentHistory: z.string().optional(),
+  seriousFall: z.string().optional(),
+  mentalHealthTreatment: z.string().optional(),
+  bloodDisorders: z.boolean(),
+  highBloodPressure: z.boolean(),
+  stomachProblems: z.string().optional(),
+  bowelProblems: z.boolean(),
+  regularBowelFunction: z.boolean(),
+  diabetes: z.boolean(),
+  heartProblems: z.boolean(),
+  respiratoryProblems: z.boolean(),
+  extremeFatigue: z.boolean(),
+  allergies: z.string().optional(),
+  sleepEasily: z.boolean(),
+  sleepSoundly: z.boolean(),
+  wakeRested: z.boolean(),
+  additionalHealthInfo: z.string().optional(),
+
+  // VIII. Movement Questions
+  movementRelationship: z.string().optional(),
+  movementChallenges: z.string().optional(),
+  handsOnComfort: z.string().optional(),
+  bodyRelationshipValue: z.string().optional(),
+  alignmentMeaning: z.string().optional(),
+  spaceConfidenceImportance: z.string().optional(),
+  comfortableInSkin: z.string().optional(),
+  extraInformation: z.string().optional(),
+});
+
+export type IntakeFormData = z.infer<typeof intakeFormSchema>;

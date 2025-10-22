@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Country Elegant Color Palette - Light warm earth tones */
+    --background: 40 30% 97%; /* Warm cream */
+    --foreground: 30 15% 20%; /* Deep brown */
+
+    --card: 40 25% 95%; /* Light cream card */
+    --card-foreground: 30 15% 20%;
+
+    --popover: 40 30% 97%;
+    --popover-foreground: 30 15% 20%;
+
+    --primary: 145 25% 45%; /* Sage green */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 35 40% 80%; /* Soft tan */
+    --secondary-foreground: 30 15% 20%;
+
+    --muted: 40 20% 90%; /* Muted beige */
+    --muted-foreground: 30 10% 40%;
+
+    --accent: 25 50% 65%; /* Terracotta accent */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 20% 85%; /* Soft border */
+    --input: 40 20% 88%;
+    --ring: 145 25% 45%; /* Sage green ring */
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 30 20% 12%;
+    --foreground: 40 20% 95%;
+
+    --card: 30 20% 15%;
+    --card-foreground: 40 20% 95%;
+
+    --popover: 30 20% 12%;
+    --popover-foreground: 40 20% 95%;
+
+    --primary: 145 25% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 35 25% 25%;
+    --secondary-foreground: 40 20% 95%;
+
+    --muted: 30 15% 25%;
+    --muted-foreground: 40 15% 70%;
+
+    --accent: 25 50% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 15% 25%;
+    --input: 30 15% 25%;
+    --ring: 145 25% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom scrollbar */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Smooth animations */
+* {
+  @apply transition-colors duration-200;
+}
+
+/* Google Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
