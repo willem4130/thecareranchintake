@@ -4,73 +4,268 @@
 
 @layer base {
   :root {
-    /* Editorial Design System - Primary Colors */
-    --primary-red: 10 100% 43%;
-    --primary: var(--primary-red);
-    --primary-hover: 10 100% 38%;
-    --primary-foreground: 0 0% 100%;
+    /* ============================================
+       PURE MONOCHROME COLOR SYSTEM
+       Palette: Classic black & white - timeless elegance
+       WCAG AA Compliant - All contrast ratios meet 4.5:1
+       ============================================ */
 
-    /* Editorial - Grays & Neutrals */
+    /* ---- BRAND COLORS ---- */
+    /* Primary: Pure Black (#000000) - Main brand color */
+    --primary: 0 0% 0%;
+    --primary-hover: 0 0% 15%; /* Hover state */
+    --primary-active: 0 0% 10%; /* Active/pressed state */
+    --primary-disabled: 0 0% 60%; /* Disabled state */
+    --primary-foreground: 0 0% 100%; /* Text on primary (white) - 21:1 contrast */
+
+    /* Secondary: Dark Gray (#404040) - Supporting actions */
+    --secondary: 0 0% 25%; /* #404040 */
+    --secondary-hover: 0 0% 20%; /* Darker on hover */
+    --secondary-active: 0 0% 15%; /* Active state */
+    --secondary-disabled: 0 0% 70%; /* Disabled state */
+    --secondary-foreground: 0 0% 100%; /* White text - 10.7:1 contrast */
+
+    /* Accent: Medium Gray (#666666) - Highlights & focus */
+    --accent: 0 0% 40%; /* #666666 */
+    --accent-hover: 0 0% 35%; /* Darker on hover */
+    --accent-active: 0 0% 30%; /* Active state */
+    --accent-disabled: 0 0% 75%; /* Disabled state */
+    --accent-foreground: 0 0% 100%; /* White text - 5.74:1 contrast */
+
+    /* ---- SURFACE COLORS ---- */
+    /* Background: Pure White (#ffffff) */
     --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 20%;
+    --foreground: 0 0% 0%; /* Pure black text - 21:1 contrast */
+
+    /* Surface: Light Gray (#f5f5f5) - Cards, panels */
+    --surface: 0 0% 96%; /* #f5f5f5 */
+    --surface-hover: 0 0% 93%; /* Hover state */
+    --surface-foreground: 0 0% 0%; /* Black text - 20.6:1 contrast */
+
+    /* Card surfaces */
+    --card: 0 0% 100%; /* White cards */
+    --card-hover: 0 0% 98%; /* Subtle hover */
+    --card-foreground: 0 0% 0%; /* Black text - 21:1 contrast */
+
+    /* Popover/Dropdown surfaces */
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
 
-    /* Editorial - UI Colors */
-    --secondary: 0 0% 96.9%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 96.9%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 0% 96.9%;
-    --accent-foreground: 0 0% 0%;
+    /* ---- TEXT COLORS ---- */
+    --text-primary: 0 0% 0%; /* Primary text - pure black */
+    --text-secondary: 0 0% 25%; /* Secondary text - #404040 - 10.7:1 contrast */
+    --text-tertiary: 0 0% 40%; /* Tertiary text - #666666 - 5.74:1 contrast */
+    --text-disabled: 0 0% 60%; /* Disabled text - #999999 */
+    --text-inverse: 0 0% 100%; /* White text on dark backgrounds */
 
-    /* Editorial - Borders & Inputs */
-    --border: 0 0% 90.6%;
-    --input: 0 0% 90.6%;
-    --ring: var(--primary-red);
+    /* Muted text (less emphasis) */
+    --muted: 0 0% 96%; /* Muted background */
+    --muted-foreground: 0 0% 40%; /* Muted text - 5.74:1 contrast */
 
-    /* Editorial - Destructive/Error */
-    --destructive: 7 73% 61%;
+    /* ---- FEEDBACK COLORS (Monochrome) ---- */
+    /* Success: Dark gray for success states */
+    --success: 0 0% 20%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 0 0% 94%; /* Light success background */
+
+    /* Error/Destructive: Black for errors */
+    --error: 0 0% 0%;
+    --error-foreground: 0 0% 100%;
+    --error-light: 0 0% 94%; /* Light error background */
+    --destructive: 0 0% 0%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Border Radius - Subtle for editorial feel */
-    --radius: 3px;
+    /* Warning: Medium gray for warnings */
+    --warning: 0 0% 30%;
+    --warning-foreground: 0 0% 100%;
+    --warning-light: 0 0% 94%; /* Light warning background */
 
-    /* Editorial Design Tokens */
-    --editorial-black: 0 0% 0%;
-    --editorial-dark-gray: 0 0% 20%;
-    --editorial-gray: 0 0% 40%;
-    --editorial-light-gray: 0 0% 90.6%;
-    --editorial-very-light-gray: 0 0% 96.9%;
+    /* Info: Medium-dark gray for info */
+    --info: 0 0% 35%;
+    --info-foreground: 0 0% 100%;
+    --info-light: 0 0% 94%; /* Light info background */
 
-    /* Shadows */
-    --shadow-soft: 0 2px 4px 0 rgba(0, 0, 0, 0.24);
-    --shadow-medium: 2px 2px 7px 0 rgba(0, 0, 0, 0.2);
-    --shadow-hover: 1.5px 1.5px 1px rgba(0, 0, 0, 0.2);
+    /* ---- BORDER COLORS ---- */
+    --border: 0 0% 90%; /* Default border - #e5e5e5 */
+    --border-medium: 0 0% 80%; /* Medium emphasis border */
+    --border-strong: 0 0% 60%; /* Strong emphasis border */
+    --border-disabled: 0 0% 95%; /* Disabled border */
+
+    /* ---- INPUT COLORS ---- */
+    --input: 0 0% 90%; /* Input border */
+    --input-hover: 0 0% 80%; /* Input border on hover */
+    --input-focus: 0 0% 0%; /* Input border on focus (black) */
+    --input-disabled: 0 0% 95%; /* Input border when disabled */
+
+    /* Focus ring */
+    --ring: 0 0% 0%; /* Focus ring color (black) */
+    --ring-offset: 0 0% 100%; /* Ring offset (white) */
+
+    /* ---- OVERLAY COLORS ---- */
+    --overlay-light: 0 0% 0% / 0.1; /* 10% black overlay */
+    --overlay-medium: 0 0% 0% / 0.3; /* 30% black overlay */
+    --overlay-strong: 0 0% 0% / 0.6; /* 60% black overlay */
+    --overlay-backdrop: 0 0% 0% / 0.5; /* Modal backdrop */
+
+    /* ---- SHADOW COLORS ---- */
+    --shadow-color: 0 0% 0%;
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.12);
+
+    /* ---- DESIGN TOKENS ---- */
+    --radius: 3px; /* Border radius */
+
+    /* Monochrome scale for flexible use */
+    --mono-0: 0 0% 0%; /* Pure black */
+    --mono-100: 0 0% 10%; /* #1a1a1a */
+    --mono-200: 0 0% 20%; /* #333333 */
+    --mono-300: 0 0% 30%; /* #4d4d4d */
+    --mono-400: 0 0% 40%; /* #666666 */
+    --mono-500: 0 0% 50%; /* #808080 */
+    --mono-600: 0 0% 60%; /* #999999 */
+    --mono-700: 0 0% 70%; /* #b3b3b3 */
+    --mono-800: 0 0% 80%; /* #cccccc */
+    --mono-900: 0 0% 90%; /* #e5e5e5 */
+    --mono-950: 0 0% 95%; /* #f2f2f2 */
+    --mono-1000: 0 0% 100%; /* Pure white */
+
+    /* Animation Timing Variables */
+    --duration-button: 250ms;
+    --duration-entrance: 500ms;
+    --duration-loading: 1500ms;
+    --duration-feedback: 500ms;
+    --duration-transition: 300ms;
+    --duration-micro: 200ms;
+
+    /* Animation Easing Variables */
+    --ease-modern: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-elegant: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.6, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-inout: ease-in-out;
+
+    /* ============================================
+       TYPOGRAPHY SYSTEM - Playfair + Source Sans 3
+       ============================================
+
+       Font Pairing: Elegant serif + clean sans
+       Heading Font: Playfair Display (700)
+       Body Font: Source Sans 3 (400, 600)
+
+       Usage:
+       - Headings (h1-h6): font-serif with weight 700
+       - Body text: font-sans (400 regular, 600 semibold)
+       - Use CSS variables for consistent sizing
+       - All sizes use rem units for scalability
+    */
+
+    /* Typography Scale - Font Sizes (rem units) */
+    --font-size-xs: 0.75rem; /* 12px - Small labels, captions */
+    --font-size-sm: 0.875rem; /* 14px - Secondary text */
+    --font-size-base: 1rem; /* 16px - Body text */
+    --font-size-lg: 1.125rem; /* 18px - Large body text */
+    --font-size-xl: 1.25rem; /* 20px - Small headings */
+    --font-size-2xl: 1.5rem; /* 24px - h6, h5 */
+    --font-size-3xl: 1.875rem; /* 30px - h4 */
+    --font-size-4xl: 2.25rem; /* 36px - h3 */
+    --font-size-5xl: 3rem; /* 48px - h2 */
+    --font-size-6xl: 3.75rem; /* 60px - h1 */
+
+    /* Responsive Typography - Mobile Adjustments */
+    --font-size-6xl-mobile: 2.5rem; /* 40px - h1 on mobile */
+    --font-size-5xl-mobile: 2rem; /* 32px - h2 on mobile */
+    --font-size-4xl-mobile: 1.75rem; /* 28px - h3 on mobile */
+
+    /* Line Heights - Optimized for readability */
+    --line-height-tight: 1.2; /* Headings */
+    --line-height-snug: 1.375; /* Subheadings */
+    --line-height-normal: 1.5; /* Body text */
+    --line-height-relaxed: 1.625; /* Large body text */
+    --line-height-loose: 1.75; /* Spacious reading */
+
+    /* Letter Spacing */
+    --letter-spacing-tight: -0.025em; /* Large headings */
+    --letter-spacing-normal: 0; /* Default */
+    --letter-spacing-wide: 0.025em; /* Small headings */
+    --letter-spacing-wider: 0.05em; /* UI elements */
+    --letter-spacing-widest: 0.1em; /* Uppercase labels */
+
+    /* Font Weights */
+    --font-weight-normal: 400; /* Source Sans 3 regular */
+    --font-weight-semibold: 600; /* Source Sans 3 semibold */
+    --font-weight-bold: 700; /* Playfair Display */
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: var(--primary-red);
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15.9%;
-    --muted-foreground: 0 0% 64.9%;
-    --accent: 0 0% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 7 73% 61%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15.9%;
-    --input: 0 0% 15.9%;
-    --ring: var(--primary-red);
+    /* ---- DARK MODE (Inverted Monochrome) ---- */
+    --background: 0 0% 5%; /* Near black background */
+    --foreground: 0 0% 95%; /* Off-white text */
+
+    --primary: 0 0% 100%; /* White primary in dark mode */
+    --primary-hover: 0 0% 90%;
+    --primary-active: 0 0% 85%;
+    --primary-foreground: 0 0% 0%; /* Black text on white */
+
+    --secondary: 0 0% 80%;
+    --secondary-hover: 0 0% 85%;
+    --secondary-foreground: 0 0% 0%;
+
+    --accent: 0 0% 70%;
+    --accent-hover: 0 0% 75%;
+    --accent-foreground: 0 0% 0%;
+
+    --surface: 0 0% 10%; /* Dark gray surface */
+    --surface-hover: 0 0% 12%;
+    --surface-foreground: 0 0% 95%;
+
+    --card: 0 0% 8%;
+    --card-hover: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --text-primary: 0 0% 95%;
+    --text-secondary: 0 0% 75%;
+    --text-tertiary: 0 0% 60%;
+    --text-disabled: 0 0% 40%;
+    --text-inverse: 0 0% 5%;
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 60%;
+
+    --success: 0 0% 85%;
+    --success-foreground: 0 0% 0%;
+    --success-light: 0 0% 15%;
+
+    --error: 0 0% 95%;
+    --error-foreground: 0 0% 0%;
+    --error-light: 0 0% 15%;
+    --destructive: 0 0% 95%;
+    --destructive-foreground: 0 0% 0%;
+
+    --warning: 0 0% 80%;
+    --warning-foreground: 0 0% 0%;
+    --warning-light: 0 0% 15%;
+
+    --info: 0 0% 75%;
+    --info-foreground: 0 0% 0%;
+    --info-light: 0 0% 15%;
+
+    --border: 0 0% 20%;
+    --border-medium: 0 0% 30%;
+    --border-strong: 0 0% 50%;
+    --border-disabled: 0 0% 15%;
+
+    --input: 0 0% 20%;
+    --input-hover: 0 0% 30%;
+    --input-focus: 0 0% 100%;
+    --input-disabled: 0 0% 15%;
+
+    --ring: 0 0% 100%;
+    --ring-offset: 0 0% 5%;
   }
 }
 
@@ -78,76 +273,755 @@
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground font-serif antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+  }
+
+  /* Typography Base Styles - Heading Hierarchy */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif text-foreground;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    margin-bottom: 0.5em;
+  }
+
+  h1 {
+    font-size: var(--font-size-6xl);
+    letter-spacing: var(--letter-spacing-tight);
+  }
+
+  h2 {
+    font-size: var(--font-size-5xl);
+    letter-spacing: var(--letter-spacing-tight);
+  }
+
+  h3 {
+    font-size: var(--font-size-4xl);
+    letter-spacing: var(--letter-spacing-normal);
+  }
+
+  h4 {
+    font-size: var(--font-size-3xl);
+    line-height: var(--line-height-snug);
+  }
+
+  h5 {
+    font-size: var(--font-size-2xl);
+    line-height: var(--line-height-snug);
+  }
+
+  h6 {
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-wide);
+  }
+
+  /* Responsive Typography - Mobile Adjustments */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: var(--font-size-6xl-mobile);
+    }
+
+    h2 {
+      font-size: var(--font-size-5xl-mobile);
+    }
+
+    h3 {
+      font-size: var(--font-size-4xl-mobile);
+    }
+  }
+
+  /* Body Text Styles */
+  p {
+    margin-bottom: 1em;
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Strong & Bold */
+  strong,
+  b {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Lists */
+  ul,
+  ol {
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+  }
+
+  li {
+    line-height: var(--line-height-relaxed);
+    margin-bottom: 0.5em;
+  }
+
+  /* Links */
+  a {
+    color: inherit;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: hsl(var(--primary));
+  }
+
+  /* Code & Monospace */
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', monospace;
+    font-size: 0.9em;
+  }
+
+  code {
+    background-color: hsl(var(--muted));
+    padding: 0.125em 0.25em;
+    border-radius: 3px;
+  }
+
+  pre {
+    background-color: hsl(var(--muted));
+    padding: 1em;
+    border-radius: 3px;
+    overflow-x: auto;
+    margin-bottom: 1em;
+  }
+
+  pre code {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  /* Small Text */
+  small {
+    font-size: var(--font-size-sm);
   }
 }
 
 @layer components {
-  /* Editorial Typography Components */
-  .editorial-heading {
-    @apply font-serif font-bold text-editorial-black;
+  /* ============================================
+     MONOCHROME UI COMPONENTS
+     Semantic component styles using color tokens
+     ============================================ */
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))]
+           hover:bg-[hsl(var(--primary-hover))] active:bg-[hsl(var(--primary-active))]
+           disabled:bg-[hsl(var(--primary-disabled))] disabled:cursor-not-allowed
+           font-serif font-bold text-[13.4px] uppercase px-3 py-3 rounded-[3px]
+           transition-colors duration-200;
   }
 
-  .editorial-body {
-    @apply font-serif text-[13px] leading-relaxed tracking-[0.2px] text-editorial-darkGray;
+  .btn-secondary {
+    @apply bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))]
+           hover:bg-[hsl(var(--secondary-hover))] active:bg-[hsl(var(--secondary-active))]
+           disabled:bg-[hsl(var(--secondary-disabled))] disabled:cursor-not-allowed
+           font-serif font-bold text-[13px] px-3 py-2 rounded-[3px]
+           transition-colors duration-200;
   }
 
-  .editorial-nav {
-    @apply font-serif text-[11px] font-medium uppercase tracking-nav leading-[1.36];
+  .btn-outline {
+    @apply bg-transparent border border-[hsl(var(--primary))] text-[hsl(var(--primary))]
+           hover:bg-[hsl(var(--surface))] active:bg-[hsl(var(--muted))]
+           disabled:border-[hsl(var(--border-disabled))] disabled:text-[hsl(var(--text-disabled))]
+           font-serif font-bold text-[13px] px-3 py-2 rounded-[3px]
+           transition-colors duration-200;
   }
 
-  /* Editorial Link Styles */
-  .editorial-link {
-    @apply text-editorial-black underline hover:text-primary hover:shadow-[0_1px_0_0_hsl(var(--primary-red))] transition-all duration-100;
+  /* Inputs */
+  .input-base {
+    @apply border border-[hsl(var(--input))] rounded-[3px] font-sans text-xs
+           h-[42px] px-[10px] py-[5px] w-full
+           hover:border-[hsl(var(--input-hover))]
+           focus:border-[hsl(var(--input-focus))] focus:outline-none
+           disabled:border-[hsl(var(--input-disabled))] disabled:bg-[hsl(var(--muted))]
+           transition-colors;
   }
 
-  .editorial-nav-link {
-    @apply editorial-nav text-editorial-black no-underline hover:shadow-[0_1px_0_0_#000];
+  .input-error {
+    @apply border-[hsl(var(--error))] focus:border-[hsl(var(--error))];
   }
 
-  /* Editorial Button Styles */
-  .editorial-button-primary {
-    @apply bg-[#1f638a] hover:bg-[#05a7d4] text-white font-serif font-bold text-[13.4px] uppercase px-3 py-3 rounded-[3px] transition-colors duration-200;
+  .input-success {
+    @apply border-[hsl(var(--success))] focus:border-[hsl(var(--success))];
   }
 
-  .editorial-button-secondary {
-    @apply bg-transparent border border-editorial-black text-editorial-black font-serif font-bold text-[13px] px-3 py-2 rounded-[3px] hover:bg-editorial-veryLightGray transition-colors duration-200;
+  /* Cards */
+  .card-base {
+    @apply bg-[hsl(var(--card))] rounded-sm p-5 shadow-[var(--shadow-soft)]
+           hover:bg-[hsl(var(--card-hover))] transition-colors;
   }
 
-  /* Editorial Input Styles */
-  .editorial-input {
-    @apply border border-editorial-lightGray rounded-[3px] font-sans text-xs h-[42px] px-[10px] py-[5px] w-full focus:border-editorial-gray focus:outline-none transition-colors;
+  .card-elevated {
+    @apply bg-[hsl(var(--card))] rounded-sm p-6 shadow-[var(--shadow-medium)]
+           hover:shadow-[var(--shadow-hover)];
   }
 
-  .editorial-input-error {
-    @apply border-error;
+  .card-surface {
+    @apply bg-[hsl(var(--surface))] rounded-sm p-5
+           hover:bg-[hsl(var(--surface-hover))] transition-colors;
   }
 
-  /* Editorial Card/Container */
-  .editorial-card {
-    @apply bg-white rounded-sm p-5 shadow-soft;
+  /* Typography */
+  .text-heading {
+    @apply font-serif font-bold text-[hsl(var(--text-primary))];
   }
 
-  .editorial-card-medium {
-    @apply bg-white rounded-sm p-6 shadow-medium;
+  .text-body {
+    @apply font-serif text-[13px] leading-relaxed tracking-[0.2px] text-[hsl(var(--text-secondary))];
   }
 
-  /* Page Container */
-  .editorial-container {
+  .text-caption {
+    @apply font-sans text-xs text-[hsl(var(--text-tertiary))];
+  }
+
+  /* Links */
+  .link-base {
+    @apply text-[hsl(var(--primary))] underline hover:text-[hsl(var(--primary-hover))]
+           transition-colors duration-100;
+  }
+
+  .link-nav {
+    @apply font-serif text-[11px] font-medium uppercase tracking-[2px] leading-[1.36]
+           text-[hsl(var(--text-primary))] no-underline
+           hover:shadow-[0_1px_0_0_hsl(var(--primary))];
+  }
+
+  /* Badges */
+  .badge-default {
+    @apply inline-flex items-center px-2 py-1 rounded-sm text-xs font-medium
+           bg-[hsl(var(--surface))] text-[hsl(var(--text-primary))]
+           border border-[hsl(var(--border))];
+  }
+
+  .badge-success {
+    @apply inline-flex items-center px-2 py-1 rounded-sm text-xs font-medium
+           bg-[hsl(var(--success-light))] text-[hsl(var(--success))]
+           border border-[hsl(var(--success))];
+  }
+
+  .badge-error {
+    @apply inline-flex items-center px-2 py-1 rounded-sm text-xs font-medium
+           bg-[hsl(var(--error-light))] text-[hsl(var(--error))]
+           border border-[hsl(var(--error))];
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center px-2 py-1 rounded-sm text-xs font-medium
+           bg-[hsl(var(--warning-light))] text-[hsl(var(--warning))]
+           border border-[hsl(var(--warning))];
+  }
+
+  /* Alerts */
+  .alert-info {
+    @apply p-4 rounded-sm bg-[hsl(var(--info-light))] border-l-4 border-[hsl(var(--info))]
+           text-[hsl(var(--text-primary))];
+  }
+
+  .alert-success {
+    @apply p-4 rounded-sm bg-[hsl(var(--success-light))] border-l-4 border-[hsl(var(--success))]
+           text-[hsl(var(--text-primary))];
+  }
+
+  .alert-warning {
+    @apply p-4 rounded-sm bg-[hsl(var(--warning-light))] border-l-4 border-[hsl(var(--warning))]
+           text-[hsl(var(--text-primary))];
+  }
+
+  .alert-error {
+    @apply p-4 rounded-sm bg-[hsl(var(--error-light))] border-l-4 border-[hsl(var(--error))]
+           text-[hsl(var(--text-primary))];
+  }
+
+  /* Containers */
+  .container-base {
     @apply max-w-3xl mx-auto px-6 py-12;
+  }
+
+  /* State indicators */
+  .state-disabled {
+    @apply opacity-50 cursor-not-allowed pointer-events-none;
+  }
+
+  .state-loading {
+    @apply animate-pulse-loading cursor-wait;
   }
 
   /* Auto-save indicator states */
   .autosave-saving {
-    @apply text-editorial-gray italic text-[11px] font-serif;
+    @apply text-[hsl(var(--text-tertiary))] italic text-[11px] font-serif;
   }
 
   .autosave-saved {
-    @apply text-primary italic text-[11px] font-serif;
+    @apply text-[hsl(var(--success))] italic text-[11px] font-serif;
   }
 
   .autosave-error {
-    @apply text-error italic text-[11px] font-serif;
+    @apply text-[hsl(var(--error))] italic text-[11px] font-serif;
+  }
+}
+
+/* ============================================
+   ANIMATION SYSTEM
+   Hardware-accelerated, accessible animations
+   ============================================ */
+
+/* Keyframe Definitions */
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
+}
+
+@keyframes success-pop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes toggle-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(20px);
+  }
+}
+
+@layer utilities {
+  /* ============================================
+     1. BUTTON & HOVER ANIMATIONS
+     Modern Scale - Smooth lift + scale
+     ============================================ */
+
+  .animate-modern-scale {
+    transition:
+      transform var(--duration-button) var(--ease-modern),
+      box-shadow var(--duration-button) var(--ease-modern);
+    will-change: transform;
+  }
+
+  .animate-modern-scale:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .animate-modern-scale:active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ============================================
+     2. ENTRANCE ANIMATIONS
+     Slide Up - Elegant reveal from bottom
+     ============================================ */
+
+  .animate-slide-up {
+    animation: slide-up var(--duration-entrance) var(--ease-elegant);
+  }
+
+  .animate-slide-up-delay-100 {
+    animation: slide-up var(--duration-entrance) var(--ease-elegant) 100ms both;
+  }
+
+  .animate-slide-up-delay-200 {
+    animation: slide-up var(--duration-entrance) var(--ease-elegant) 200ms both;
+  }
+
+  .animate-slide-up-delay-300 {
+    animation: slide-up var(--duration-entrance) var(--ease-elegant) 300ms both;
+  }
+
+  /* ============================================
+     3. LOADING ANIMATIONS
+     Pulse - Gentle pulsing for skeleton states
+     ============================================ */
+
+  .animate-pulse-loading {
+    animation: pulse var(--duration-loading) var(--ease-smooth) infinite;
+  }
+
+  /* ============================================
+     4. FEEDBACK ANIMATIONS
+     Success Pop - Bouncy scale for confirmations
+     ============================================ */
+
+  .animate-success-pop {
+    animation: success-pop var(--duration-feedback) var(--ease-bounce);
+  }
+
+  /* ============================================
+     5. PAGE TRANSITION ANIMATIONS
+     Fade Cross - Simple cross-fade
+     ============================================ */
+
+  .animate-fade-in {
+    animation: fade-in var(--duration-transition) var(--ease-inout);
+  }
+
+  .animate-fade-out {
+    animation: fade-out var(--duration-transition) var(--ease-inout);
+  }
+
+  .transition-page {
+    transition: opacity var(--duration-transition) var(--ease-inout);
+  }
+
+  /* ============================================
+     6. MICRO-INTERACTION ANIMATIONS
+     Toggle Slide - Smooth toggle switches
+     ============================================ */
+
+  .animate-toggle-slide {
+    transition: transform var(--duration-micro) var(--ease-modern);
+    will-change: transform;
+  }
+
+  .animate-toggle-slide.active {
+    transform: translateX(20px);
+  }
+
+  /* ============================================
+     UTILITY CLASSES
+     Common animation patterns
+     ============================================ */
+
+  /* Smooth Transform Transitions */
+  .transition-transform-smooth {
+    transition: transform var(--duration-button) var(--ease-modern);
+    will-change: transform;
+  }
+
+  /* Smooth Opacity Transitions */
+  .transition-opacity-smooth {
+    transition: opacity var(--duration-transition) var(--ease-inout);
+  }
+
+  /* Combined Transform + Opacity */
+  .transition-all-smooth {
+    transition:
+      transform var(--duration-button) var(--ease-modern),
+      opacity var(--duration-transition) var(--ease-inout);
+    will-change: transform, opacity;
+  }
+
+  /* Scale on Hover - Simple */
+  .hover-scale-sm:hover {
+    transform: scale(1.02);
+  }
+
+  .hover-scale-md:hover {
+    transform: scale(1.05);
+  }
+
+  .hover-scale-lg:hover {
+    transform: scale(1.1);
+  }
+
+  /* Lift on Hover - Simple */
+  .hover-lift-sm:hover {
+    transform: translateY(-2px);
+  }
+
+  .hover-lift-md:hover {
+    transform: translateY(-4px);
+  }
+
+  /* ============================================
+     ACCESSIBILITY - REDUCED MOTION
+     Respects user's motion preferences
+     ============================================ */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable will-change for reduced motion */
+  .animate-modern-scale,
+  .animate-toggle-slide,
+  .transition-transform-smooth,
+  .transition-all-smooth {
+    will-change: auto !important;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY UTILITY CLASSES
+   Professional font system utilities
+   ============================================ */
+
+@layer utilities {
+  /* Font Size Utilities */
+  .text-xs-custom {
+    font-size: var(--font-size-xs);
+  }
+  .text-sm-custom {
+    font-size: var(--font-size-sm);
+  }
+  .text-base-custom {
+    font-size: var(--font-size-base);
+  }
+  .text-lg-custom {
+    font-size: var(--font-size-lg);
+  }
+  .text-xl-custom {
+    font-size: var(--font-size-xl);
+  }
+  .text-2xl-custom {
+    font-size: var(--font-size-2xl);
+  }
+  .text-3xl-custom {
+    font-size: var(--font-size-3xl);
+  }
+  .text-4xl-custom {
+    font-size: var(--font-size-4xl);
+  }
+  .text-5xl-custom {
+    font-size: var(--font-size-5xl);
+  }
+  .text-6xl-custom {
+    font-size: var(--font-size-6xl);
+  }
+
+  /* Line Height Utilities */
+  .leading-tight-custom {
+    line-height: var(--line-height-tight);
+  }
+  .leading-snug-custom {
+    line-height: var(--line-height-snug);
+  }
+  .leading-normal-custom {
+    line-height: var(--line-height-normal);
+  }
+  .leading-relaxed-custom {
+    line-height: var(--line-height-relaxed);
+  }
+  .leading-loose-custom {
+    line-height: var(--line-height-loose);
+  }
+
+  /* Letter Spacing Utilities */
+  .tracking-tight-custom {
+    letter-spacing: var(--letter-spacing-tight);
+  }
+  .tracking-normal-custom {
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  .tracking-wide-custom {
+    letter-spacing: var(--letter-spacing-wide);
+  }
+  .tracking-wider-custom {
+    letter-spacing: var(--letter-spacing-wider);
+  }
+  .tracking-widest-custom {
+    letter-spacing: var(--letter-spacing-widest);
+  }
+
+  /* Font Weight Utilities */
+  .font-normal-custom {
+    font-weight: var(--font-weight-normal);
+  }
+  .font-semibold-custom {
+    font-weight: var(--font-weight-semibold);
+  }
+  .font-bold-custom {
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* Typography Combination Classes */
+
+  /* Heading Styles - Playfair Display */
+  .heading-display {
+    @apply font-serif;
+    font-size: var(--font-size-6xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+  }
+
+  .heading-1 {
+    @apply font-serif;
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+  }
+
+  .heading-2 {
+    @apply font-serif;
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-snug);
+  }
+
+  .heading-3 {
+    @apply font-serif;
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-snug);
+  }
+
+  .heading-4 {
+    @apply font-serif;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-snug);
+  }
+
+  .heading-5 {
+    @apply font-serif;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-snug);
+  }
+
+  .heading-6 {
+    @apply font-serif;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-wide);
+  }
+
+  /* Body Text Styles - Source Sans 3 */
+  .body-large {
+    @apply font-sans;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .body-base {
+    @apply font-sans;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+  }
+
+  .body-small {
+    @apply font-sans;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+  }
+
+  /* UI Text Styles */
+  .label-large {
+    @apply font-sans;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-normal);
+  }
+
+  .label-base {
+    @apply font-sans;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-normal);
+  }
+
+  .label-small {
+    @apply font-sans;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-wider);
+  }
+
+  .caption {
+    @apply font-sans;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+  }
+
+  /* Special Text Styles */
+  .text-uppercase-spaced {
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-widest);
+  }
+
+  .text-editorial-serif {
+    @apply font-serif;
+    font-weight: var(--font-weight-bold);
+  }
+
+  .text-editorial-sans {
+    @apply font-sans;
+    font-weight: var(--font-weight-normal);
+  }
+
+  /* Responsive Typography Utilities */
+  @media (max-width: 768px) {
+    .heading-display {
+      font-size: var(--font-size-6xl-mobile);
+    }
+
+    .heading-1 {
+      font-size: var(--font-size-5xl-mobile);
+    }
+
+    .heading-2 {
+      font-size: var(--font-size-4xl-mobile);
+    }
   }
 }

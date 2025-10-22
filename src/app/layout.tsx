@@ -1,21 +1,21 @@
 import '@/styles/globals.css';
 import { type Metadata } from 'next';
 import { TRPCReactProvider } from '@/trpc/client';
-import { Libre_Franklin } from 'next/font/google';
-import localFont from 'next/font/local';
+import { Playfair_Display, Source_Sans_3 } from 'next/font/google';
 
-// Editorial serif font - Using Georgia as system font (Miller Text fallback)
-const millerText = localFont({
-  src: [],
-  variable: '--font-miller',
-  fallback: ['Georgia', 'serif'],
+// Heading font - Playfair Display (Elegant Serif)
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-playfair',
   display: 'swap',
 });
 
-// Sans-serif for UI elements
-const libreFranklin = Libre_Franklin({
+// Body font - Source Sans 3 (Clean Sans-serif)
+const sourceSans3 = Source_Sans_3({
   subsets: ['latin'],
-  variable: '--font-libre',
+  weight: ['400', '600'],
+  variable: '--font-source-sans',
   display: 'swap',
 });
 
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${millerText.variable} ${libreFranklin.variable}`}>
-      <body className="font-serif antialiased">
+    <html lang="en" className={`${playfairDisplay.variable} ${sourceSans3.variable}`}>
+      <body className="font-sans antialiased">
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>
