@@ -4,48 +4,73 @@
 
 @layer base {
   :root {
+    /* Editorial Design System - Primary Colors */
+    --primary-red: 10 100% 43%;
+    --primary: var(--primary-red);
+    --primary-hover: 10 100% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Editorial - Grays & Neutrals */
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 0 0% 0%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 0 0% 20%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
+    --popover-foreground: 0 0% 0%;
+
+    /* Editorial - UI Colors */
+    --secondary: 0 0% 96.9%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 96.9%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 0 0% 96.9%;
+    --accent-foreground: 0 0% 0%;
+
+    /* Editorial - Borders & Inputs */
+    --border: 0 0% 90.6%;
+    --input: 0 0% 90.6%;
+    --ring: var(--primary-red);
+
+    /* Editorial - Destructive/Error */
+    --destructive: 7 73% 61%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border Radius - Subtle for editorial feel */
+    --radius: 3px;
+
+    /* Editorial Design Tokens */
+    --editorial-black: 0 0% 0%;
+    --editorial-dark-gray: 0 0% 20%;
+    --editorial-gray: 0 0% 40%;
+    --editorial-light-gray: 0 0% 90.6%;
+    --editorial-very-light-gray: 0 0% 96.9%;
+
+    /* Shadows */
+    --shadow-soft: 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+    --shadow-medium: 2px 2px 7px 0 rgba(0, 0, 0, 0.2);
+    --shadow-hover: 1.5px 1.5px 1px rgba(0, 0, 0, 0.2);
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
+    --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
+    --primary: var(--primary-red);
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 15.9%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
+    --muted: 0 0% 15.9%;
+    --muted-foreground: 0 0% 64.9%;
+    --accent: 0 0% 15.9%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 7 73% 61%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 0 0% 15.9%;
+    --input: 0 0% 15.9%;
+    --ring: var(--primary-red);
   }
 }
 
@@ -54,6 +79,75 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-serif antialiased;
+  }
+}
+
+@layer components {
+  /* Editorial Typography Components */
+  .editorial-heading {
+    @apply font-serif font-bold text-editorial-black;
+  }
+
+  .editorial-body {
+    @apply font-serif text-[13px] leading-relaxed tracking-[0.2px] text-editorial-darkGray;
+  }
+
+  .editorial-nav {
+    @apply font-serif text-[11px] font-medium uppercase tracking-nav leading-[1.36];
+  }
+
+  /* Editorial Link Styles */
+  .editorial-link {
+    @apply text-editorial-black underline hover:text-primary hover:shadow-[0_1px_0_0_hsl(var(--primary-red))] transition-all duration-100;
+  }
+
+  .editorial-nav-link {
+    @apply editorial-nav text-editorial-black no-underline hover:shadow-[0_1px_0_0_#000];
+  }
+
+  /* Editorial Button Styles */
+  .editorial-button-primary {
+    @apply bg-[#1f638a] hover:bg-[#05a7d4] text-white font-serif font-bold text-[13.4px] uppercase px-3 py-3 rounded-[3px] transition-colors duration-200;
+  }
+
+  .editorial-button-secondary {
+    @apply bg-transparent border border-editorial-black text-editorial-black font-serif font-bold text-[13px] px-3 py-2 rounded-[3px] hover:bg-editorial-veryLightGray transition-colors duration-200;
+  }
+
+  /* Editorial Input Styles */
+  .editorial-input {
+    @apply border border-editorial-lightGray rounded-[3px] font-sans text-xs h-[42px] px-[10px] py-[5px] w-full focus:border-editorial-gray focus:outline-none transition-colors;
+  }
+
+  .editorial-input-error {
+    @apply border-error;
+  }
+
+  /* Editorial Card/Container */
+  .editorial-card {
+    @apply bg-white rounded-sm p-5 shadow-soft;
+  }
+
+  .editorial-card-medium {
+    @apply bg-white rounded-sm p-6 shadow-medium;
+  }
+
+  /* Page Container */
+  .editorial-container {
+    @apply max-w-3xl mx-auto px-6 py-12;
+  }
+
+  /* Auto-save indicator states */
+  .autosave-saving {
+    @apply text-editorial-gray italic text-[11px] font-serif;
+  }
+
+  .autosave-saved {
+    @apply text-primary italic text-[11px] font-serif;
+  }
+
+  .autosave-error {
+    @apply text-error italic text-[11px] font-serif;
   }
 }
