@@ -8,3 +8,29 @@ export {
   type SingleChoiceQuestionProps,
   type Choice,
 } from './SingleChoiceQuestion';
+export { PhoneQuestion, type PhoneQuestionProps } from './PhoneQuestion';
+export { DateQuestion, type DateQuestionProps } from './DateQuestion';
+export { ScaleQuestion, type ScaleQuestionProps } from './ScaleQuestion';
+export {
+  MultipleChoiceQuestion,
+  type MultipleChoiceQuestionProps,
+  type MultipleChoiceOption,
+} from './MultipleChoiceQuestion';
+export {
+  DropdownQuestion,
+  type DropdownQuestionProps,
+  type DropdownOption,
+} from './DropdownQuestion';
+export {
+  FileUploadQuestion,
+  type FileUploadQuestionProps,
+  type UploadedFile,
+} from './FileUploadQuestion';
+export {
+  MatrixQuestion,
+  type MatrixQuestionProps,
+  type MatrixRow,
+  type MatrixColumn,
+  type MatrixValue,
+} from './MatrixQuestion';
+export { RangeQuestion, type RangeQuestionProps, type RangeValue } from './RangeQuestion';

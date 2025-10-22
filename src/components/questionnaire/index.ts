@@ -26,5 +26,13 @@ export {
   type QuestionDescriptionProps,
 } from './QuestionCard';
 
+// Question Renderer
+export {
+  QuestionRenderer,
+  type QuestionRendererProps,
+  type QuestionType,
+  type QuestionConfig,
+} from './QuestionRenderer';
+
 // Question Type Components
 export * from './questions';
