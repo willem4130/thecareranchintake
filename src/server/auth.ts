@@ -1,6 +1,8 @@
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import Resend from 'next-auth/providers/resend';
 import { db } from './db';
+import { env } from '@/env';
 import type { DefaultSession } from 'next-auth';
 
 /**
@@ -14,31 +16,23 @@ declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      role: 'ADMIN' | 'PARTICIPANT';
     } & DefaultSession['user'];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    role: 'ADMIN' | 'PARTICIPANT';
+  }
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  // @ts-expect-error - Adapter type mismatch between @auth/core versions
   adapter: PrismaAdapter(db),
   providers: [
-    /**
-     * Add your auth providers here.
-     * For a full list of providers, see:
-     * @see https://next-auth.js.org/providers
-     *
-     * Example with GitHub:
-     * GitHubProvider({
-     *   clientId: env.AUTH_GITHUB_ID,
-     *   clientSecret: env.AUTH_GITHUB_SECRET,
-     * }),
-     */
+    Resend({
+      apiKey: env.RESEND_API_KEY,
+      from: env.RESEND_FROM_EMAIL ?? 'noreply@thecareranch.com',
+    }),
   ],
   callbacks: {
     session: ({ session, user }) => ({
@@ -46,12 +40,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       user: {
         ...session.user,
         id: user.id,
+        role: (user as { role?: 'ADMIN' | 'PARTICIPANT' }).role ?? 'PARTICIPANT',
       },
     }),
   },
   pages: {
     signIn: '/sign-in',
-    // signOut: "/sign-out",
-    // error: "/error",
+    verifyRequest: '/verify-request',
   },
 });
