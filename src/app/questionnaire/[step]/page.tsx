@@ -5,12 +5,10 @@ import { useParams, useRouter } from 'next/navigation';
 import { PageContainer, ProgressTimeline, AutoSaveIndicator } from '@/components/questionnaire';
 import { QuestionRenderer, type QuestionConfig } from '@/components/questionnaire/QuestionRenderer';
 import { useAutoSave, type AutoSaveStatus } from '@/hooks/useAutoSave';
-import { questionnaireSteps } from '@/lib/questionnaireData';
-import type { QuestionnaireData } from '@/types/questionnaire';
+import { api } from '@/trpc/client';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
-
-const STORAGE_KEY = 'questionnaire-data';
+import { ChevronLeft, ChevronRight, CheckCircle, Loader2 } from 'lucide-react';
+import { mapQuestionType, parseOptions, parseValidationRules } from '@/lib/questionTypeMapping';
 
 export default function QuestionnairePage() {
   const params = useParams();
@@ -18,43 +16,58 @@ export default function QuestionnairePage() {
   const stepParam = params.step as string;
   const currentStepNumber = parseInt(stepParam, 10);
 
-  const [formData, setFormData] = React.useState<QuestionnaireData>({});
+  const [formData, setFormData] = React.useState<Record<string, unknown>>({});
   const [saveStatus, setSaveStatus] = React.useState<AutoSaveStatus>('idle');
-  const [isInitialized, setIsInitialized] = React.useState(false);
+  const [pageId, setPageId] = React.useState<string | null>(null);
 
-  const currentStep = questionnaireSteps.find((s) => s.id === currentStepNumber);
-  const isLastStep = currentStepNumber === questionnaireSteps.length;
-  const isFirstStep = currentStepNumber === 1;
+  // Fetch form structure to get total pages
+  const { data: form } = api.questionnaire.getForm.useQuery();
 
-  // Initialize data from localStorage on mount
+  // Fetch page data by order number
+  const { data: page, isLoading: isLoadingPage } = api.questionnaire.getPageByOrder.useQuery(
+    { order: currentStepNumber },
+    { enabled: currentStepNumber > 0 && !isNaN(currentStepNumber) }
+  );
+
+  // Fetch existing responses for this page
+  const { data: responses } = api.questionnaire.getPageResponses.useQuery(
+    { pageId: pageId! },
+    { enabled: !!pageId }
+  );
+
+  // Save responses mutation
+  const saveResponsesMutation = api.questionnaire.saveResponses.useMutation();
+
+  // Submit form mutation
+  const submitFormMutation = api.questionnaire.submitForm.useMutation();
+
+  // Update pageId when page loads
   React.useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        setFormData(parsed);
-      } catch (e) {
-        console.error('Failed to parse stored data:', e);
-      }
+    if (page) {
+      setPageId(page.id);
     }
-    setIsInitialized(true);
-  }, []);
+  }, [page]);
+
+  // Initialize form data from responses
+  React.useEffect(() => {
+    if (responses) {
+      setFormData(responses);
+    }
+  }, [responses]);
 
   // Auto-save hook
   useAutoSave({
     data: formData,
     onSave: async (data) => {
-      // Save to localStorage
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      if (!pageId) return;
 
-      // TODO: Replace with actual API call
-      // await api.saveQuestionnaire(data);
-
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await saveResponsesMutation.mutateAsync({
+        pageId,
+        responses: data,
+      });
     },
     delay: 500,
-    enabled: isInitialized,
+    enabled: !!pageId,
     onStatusChange: setSaveStatus,
   });
 
@@ -66,7 +79,7 @@ export default function QuestionnairePage() {
   };
 
   const handleNext = () => {
-    if (currentStepNumber < questionnaireSteps.length) {
+    if (form && currentStepNumber < form.pages.length) {
       router.push(`/questionnaire/${currentStepNumber + 1}`);
     }
   };
@@ -79,16 +92,7 @@ export default function QuestionnairePage() {
 
   const handleSubmit = async () => {
     try {
-      // TODO: Replace with actual API submission
-      console.log('Submitting questionnaire:', formData);
-
-      // Simulate submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Clear localStorage after successful submission
-      localStorage.removeItem(STORAGE_KEY);
-
-      // Redirect to success page
+      await submitFormMutation.mutateAsync();
       alert('Questionnaire submitted successfully!');
       router.push('/');
     } catch (error) {
@@ -97,22 +101,132 @@ export default function QuestionnairePage() {
     }
   };
 
-  // Render questions with data binding
+  // Redirect to step 1 if invalid step
+  React.useEffect(() => {
+    if (
+      form &&
+      (isNaN(currentStepNumber) || currentStepNumber < 1 || currentStepNumber > form.pages.length)
+    ) {
+      router.push('/questionnaire/1');
+    }
+  }, [currentStepNumber, form, router]);
+
+  // Map database questions to component questions
   const renderQuestions = () => {
-    if (!currentStep) return null;
+    if (!page) return null;
 
-    return currentStep.questions.map((question) => {
-      const questionWithData: QuestionConfig = {
-        ...question,
-        value: formData[question.id],
-        onChange: (value: unknown) => handleFieldChange(question.id, value),
-      } as QuestionConfig;
+    const allQuestions = page.sections.flatMap((section: (typeof page.sections)[number]) =>
+      section.questions.map((dbQuestion: (typeof section.questions)[number]) => {
+        const questionType = mapQuestionType(dbQuestion.type);
+        const validation = parseValidationRules(dbQuestion.validationRules);
+        const options = parseOptions(dbQuestion.options);
 
-      return <QuestionRenderer key={question.id} config={questionWithData} />;
-    });
+        // Base props for all questions
+        const baseConfig = {
+          id: dbQuestion.id,
+          question: dbQuestion.text,
+          description: dbQuestion.description ?? undefined,
+          required: dbQuestion.required,
+          value: formData[dbQuestion.id],
+          onChange: (value: unknown) => handleFieldChange(dbQuestion.id, value),
+        };
+
+        // Build question config based on type
+        let questionConfig: QuestionConfig;
+
+        switch (questionType) {
+          case 'short-text':
+          case 'email':
+          case 'phone':
+            questionConfig = {
+              ...baseConfig,
+              type: questionType,
+            } as QuestionConfig;
+            break;
+
+          case 'long-text':
+            questionConfig = {
+              ...baseConfig,
+              type: questionType,
+              rows: validation?.min ?? 4,
+              maxLength: validation?.max,
+            } as QuestionConfig;
+            break;
+
+          case 'date':
+            questionConfig = {
+              ...baseConfig,
+              type: questionType,
+            } as QuestionConfig;
+            break;
+
+          case 'rating':
+          case 'scale':
+            questionConfig = {
+              ...baseConfig,
+              type: questionType,
+              minValue: validation?.minValue ?? (questionType === 'rating' ? 0 : 1),
+              maxValue: validation?.maxValue ?? 10,
+              minLabel: validation?.minLabel,
+              maxLabel: validation?.maxLabel,
+            } as QuestionConfig;
+            break;
+
+          case 'yes-no':
+            questionConfig = {
+              ...baseConfig,
+              type: questionType,
+            } as QuestionConfig;
+            break;
+
+          case 'single-choice':
+            questionConfig = {
+              ...baseConfig,
+              type: questionType,
+              choices: options,
+            } as QuestionConfig;
+            break;
+
+          case 'multiple-choice':
+            questionConfig = {
+              ...baseConfig,
+              type: questionType,
+              options,
+              minSelections: validation?.minSelections,
+              maxSelections: validation?.maxSelections,
+            } as QuestionConfig;
+            break;
+
+          case 'dropdown':
+            questionConfig = {
+              ...baseConfig,
+              type: questionType,
+              options,
+            } as QuestionConfig;
+            break;
+
+          case 'file-upload':
+            questionConfig = {
+              ...baseConfig,
+              type: questionType,
+            } as QuestionConfig;
+            break;
+
+          default:
+            questionConfig = {
+              ...baseConfig,
+              type: 'short-text',
+            } as QuestionConfig;
+        }
+
+        return <QuestionRenderer key={dbQuestion.id} config={questionConfig} />;
+      })
+    );
+
+    return allQuestions;
   };
 
-  // Render review step
+  // Render review step (last step)
   const renderReviewStep = () => {
     return (
       <div className="space-y-6">
@@ -125,7 +239,6 @@ export default function QuestionnairePage() {
             needed.
           </p>
 
-          {/* Summary of responses */}
           <div className="space-y-4">
             {Object.entries(formData).map(([key, value]) => (
               <div key={key} className="border-b border-editorial-lightGray pb-3 last:border-b-0">
@@ -141,29 +254,38 @@ export default function QuestionnairePage() {
         <Button
           onClick={handleSubmit}
           size="lg"
+          disabled={submitFormMutation.isPending}
           className="w-full gap-2 bg-primary font-serif text-lg font-bold hover:bg-primary/90"
         >
-          <CheckCircle className="h-5 w-5" />
-          Submit Questionnaire
+          {submitFormMutation.isPending ? (
+            <>
+              <Loader2 className="h-5 w-5 animate-spin" />
+              Submitting...
+            </>
+          ) : (
+            <>
+              <CheckCircle className="h-5 w-5" />
+              Submit Questionnaire
+            </>
+          )}
         </Button>
       </div>
     );
   };
 
-  // Redirect to step 1 if invalid step
-  React.useEffect(() => {
-    if (
-      isNaN(currentStepNumber) ||
-      currentStepNumber < 1 ||
-      currentStepNumber > questionnaireSteps.length
-    ) {
-      router.push('/questionnaire/1');
-    }
-  }, [currentStepNumber, router]);
-
-  if (!currentStep || !isInitialized) {
-    return null; // Or loading state
+  // Loading state
+  if (isLoadingPage || !page || !form) {
+    return (
+      <PageContainer>
+        <div className="flex min-h-[400px] items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </PageContainer>
+    );
   }
+
+  const isLastStep = currentStepNumber === form.pages.length;
+  const isFirstStep = currentStepNumber === 1;
 
   return (
     <PageContainer>
@@ -171,23 +293,19 @@ export default function QuestionnairePage() {
       <div className="mb-8 space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-serif text-3xl font-bold text-editorial-darkGray">
-              {currentStep.title}
-            </h1>
-            {currentStep.description && (
-              <p className="mt-2 font-serif text-base text-editorial-gray">
-                {currentStep.description}
-              </p>
+            <h1 className="font-serif text-3xl font-bold text-editorial-darkGray">{page.title}</h1>
+            {page.description && (
+              <p className="mt-2 font-serif text-base text-editorial-gray">{page.description}</p>
             )}
           </div>
           <AutoSaveIndicator status={saveStatus} />
         </div>
 
         <ProgressTimeline
-          steps={questionnaireSteps.map((step) => ({
-            id: step.id.toString(),
-            title: step.title,
-            order: step.id,
+          steps={form.pages.map((p: (typeof form.pages)[number]) => ({
+            id: p.id,
+            title: p.title,
+            order: p.order,
           }))}
           currentStep={currentStepNumber}
         />
