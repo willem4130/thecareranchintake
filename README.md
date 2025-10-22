@@ -114,6 +114,153 @@ thecareranchintake/
 └── package.json
 ```
 
+## 🌿 GitHub Repository Structure & Branch Strategy
+
+This project follows a **Git Flow** branching strategy with organized folders for different application parts.
+
+### Branch Structure
+
+```
+main                          # Production-ready code (protected)
+  └── develop                 # Integration branch for features
+      ├── feature/design-system      # Design tokens, Tailwind config, UI components
+      ├── feature/questionnaire      # Participant questionnaire pages & components
+      ├── feature/auth               # NextAuth setup, email magic links, middleware
+      └── feature/admin-dashboard    # Admin panel, submissions, user management
+```
+
+### Branch Descriptions
+
+| Branch                    | Purpose                                         | Merge Target |
+| ------------------------- | ----------------------------------------------- | ------------ |
+| `main`                    | Production-ready, stable releases               | -            |
+| `develop`                 | Integration branch, always deployable           | `main`       |
+| `feature/design-system`   | Tailwind config, globals.css, editorial styling | `develop`    |
+| `feature/questionnaire`   | 8-page questionnaire UI with all question types | `develop`    |
+| `feature/auth`            | Email authentication, magic links via Resend    | `develop`    |
+| `feature/admin-dashboard` | Admin dashboard, submissions table, exports     | `develop`    |
+
+### Workflow
+
+1. **Create feature branches from `develop`**
+
+   ```bash
+   git checkout develop
+   git pull origin develop
+   git checkout -b feature/your-feature-name
+   ```
+
+2. **Work on your feature**
+
+   ```bash
+   # Make changes
+   git add .
+   git commit -m "feat: add your feature description"
+   ```
+
+3. **Push and create Pull Request**
+
+   ```bash
+   git push -u origin feature/your-feature-name
+   # Create PR: feature/your-feature-name → develop
+   ```
+
+4. **Merge to develop, then to main**
+
+   ```bash
+   # After PR approval
+   git checkout develop
+   git merge feature/your-feature-name
+   git push origin develop
+
+   # When ready for production
+   git checkout main
+   git merge develop
+   git push origin main
+   ```
+
+### Folder Organization by Feature
+
+```
+src/
+├── app/
+│   ├── (participant)/          # Questionnaire pages
+│   │   └── questionnaire/
+│   │       └── [pageId]/
+│   ├── (admin)/                # Admin dashboard
+│   │   └── admin/
+│   │       ├── submissions/
+│   │       ├── users/
+│   │       └── media/
+│   └── (auth)/                 # Auth pages
+│       ├── signin/
+│       └── verify-request/
+│
+├── components/
+│   ├── ui/                     # shadcn/ui components (design-system)
+│   ├── questionnaire/          # Questionnaire-specific components
+│   │   ├── ProgressTimeline.tsx
+│   │   ├── AutoSaveIndicator.tsx
+│   │   └── questions/          # 14 question type components
+│   └── admin/                  # Admin-specific components
+│       ├── SubmissionsTable.tsx
+│       └── UserManagement.tsx
+│
+├── server/
+│   ├── api/
+│   │   └── routers/
+│   │       ├── questionnaire.ts   # Questionnaire tRPC routes
+│   │       ├── admin.ts           # Admin tRPC routes
+│   │       └── user.ts            # User management routes
+│   └── auth.ts                    # NextAuth configuration
+│
+└── styles/
+    └── globals.css                # Design system CSS variables
+```
+
+### Security: No API Keys Exposed
+
+**Protected files (already in .gitignore):**
+
+- `.env`, `.env*.local` - All environment files with secrets
+- `node_modules/` - Dependencies
+- `.next/`, `dist/`, `build/` - Build outputs
+- `.vercel/` - Vercel deployment info
+
+**Included in repository:**
+
+- `.env.example` - Template with placeholder values
+- `.claude/` - Claude Code configuration (safe to commit)
+- `.husky/` - Git hooks for code quality
+- All source code and documentation
+
+### Commit Convention
+
+This project uses **Conventional Commits** enforced by Commitlint:
+
+```bash
+feat: add auto-save functionality to questionnaire
+fix: resolve rating question validation bug
+docs: update README with branch strategy
+chore: update dependencies
+refactor: simplify ProgressTimeline component
+test: add E2E tests for questionnaire flow
+```
+
+**Format:** `<type>(<scope>): <description>`
+
+**Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `ci`, `build`
+
+### Pre-commit Hooks
+
+Husky runs automatically before each commit:
+
+- **Prettier** - Formats code
+- **ESLint** - Fixes linting errors
+- **Commitlint** - Validates commit message format
+
+If the hooks fail, fix the issues and commit again.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
