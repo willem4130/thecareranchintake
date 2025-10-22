@@ -1,36 +1,72 @@
-# macOS
-.DS_Store
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Dependencies
-node_modules/
-.pnp
+# dependencies
+/node_modules
+/.pnp
 .pnp.js
+.yarn/install-state.gz
 
-# Testing
-coverage/
+# testing
+/coverage
+/test-results
+/playwright-report
+/.nyc_output
 
-# Next.js
-.next/
-out/
+# next.js
+/.next/
+/out/
 
-# Build outputs
-build/
-dist/
+# production
+/build
+/dist
 
-# Environment variables
-.env
-.env*.local
+# misc
+.DS_Store
+*.pem
 
-# Debug
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# IDEs
-.vscode/
-.idea/
+# local env files
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# turbo
+.turbo
+
+# prisma
+prisma/migrations/*/migration.sql
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
 *.swp
 *.swo
+*~
+.project
+.classpath
+.settings/
+.loadpath
 
-# Misc
-.turbo
+# Resend API keys (ensure no secrets)
+.env.resend
+**/resend-api-key*
+
+# Uploadthing
+.uploadthing-secret
+
+# Keep Claude config (safe to commit)
+!.claude/
